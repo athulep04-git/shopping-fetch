@@ -7,6 +7,7 @@ import ViewAllProducts from "./pages/ViewAllProducts"
 import Cart from "./pages/Cart"
 import './App.css'
 import ViewProduct from "./pages/ViewProduct"
+import WishList from "./pages/WishList"
 
 function App() {
   
@@ -20,6 +21,7 @@ function App() {
         <Route path='/viewallproducts' element={<ViewAllProducts/>}/>
         <Route path='/cart' element={<Cart/>}/>
         <Route path='/viewproduct/:id' element={<ViewProduct/>}/>
+        <Route path='/wishlist' element={<WishList/>}/>        
       </Routes>
       <Footer/>
     </>

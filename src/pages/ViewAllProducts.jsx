@@ -15,6 +15,7 @@ function ViewAllProducts() {
     const response = await fetch(baseurl);
     console.log(response);
     const productData = await response.json();
+    console.log(productData);
     console.log(productData.products);
     setProducts(productData.products);
   };
