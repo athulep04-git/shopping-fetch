@@ -1,39 +1,43 @@
 import React from "react";
-import Container from "react-bootstrap/Container";
-import Nav from "react-bootstrap/Nav";
-import Navbar from "react-bootstrap/Navbar";
-import NavDropdown from "react-bootstrap/NavDropdown";
+import { Container, Nav, Navbar } from "react-bootstrap";
 import logo from "../assets/logo.png";
+import { Link } from "react-router-dom";
 
 function Header() {
   return (
     <Navbar expand="lg" bg="dark" data-bs-theme="dark" className="shadow-lg">
       <Container>
-        <img
-          src={logo}
-          alt="logo"
-          width="40"
-          className="rounded-circle shadow-sm"
-        />
-        <Navbar.Brand href="/">
-          SHOP <span className="fw-bold fs-4">N</span> SHOP
+        <Navbar.Brand as={Link} to="/" className="d-flex align-items-center gap-2">
+          <img
+            src={logo}
+            alt="logo"
+            width="40"
+            height="40"
+            className="rounded-circle shadow-sm"
+          />
+          <span>
+            SHOP <span className="fw-bold fs-4">N</span> SHOP
+          </span>
         </Navbar.Brand>
+
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
+
         <Navbar.Collapse id="basic-navbar-nav">
-          <Nav className="mx-20">
-            <Nav.Link href="/" className="text-light ">
+          <Nav className="me-auto ms-3">
+            <Nav.Link as={Link} to="/" className="text-light">
               Home
             </Nav.Link>
-            <Nav.Link href="/viewallproducts" className="text-light ">
-              view all
+            <Nav.Link as={Link} to="/viewallproducts" className="text-light">
+              View All
             </Nav.Link>
           </Nav>
           <Nav className="ms-auto">
-            <Nav.Link href="/cart" className="text-light ">
+            <Nav.Link as={Link} to="/cart" className="text-light">
               Cart
             </Nav.Link>
-            <Nav.Link href="/wishlist" className="text-light ">
-              wishlist
+
+            <Nav.Link as={Link} to="/wishlist" className="text-light">
+              Wishlist
             </Nav.Link>
           </Nav>
         </Navbar.Collapse>
