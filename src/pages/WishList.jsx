@@ -1,42 +1,57 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { Button, Card, Col, Row } from 'react-bootstrap'
-import { Link } from 'react-router-dom'
+import { useDispatch, useSelector } from 'react-redux'
+import { addToCart } from '../redux/slices/cartSlice'
+import { deleteProduct } from '../redux/slices/wishlistSlice'
 
 function WishList() {
+  const dispatch=useDispatch()
+  const wishlistArray= useSelector((state)=>state.wishlist)
+  console.log(wishlistArray);//{items"[]}
+  const [products,setProducts]=useState([])
+
+  useEffect(()=>{
+    setProducts(wishlistArray.items)
+  },[wishlistArray.items])
+  
   return (
      <div className="p-4">
       <section>
         <h1 className="text-center p-5">wishlist</h1>
         <Row className="p-5">
           {
-          
-                <Col>
-                  <Link to={`/viewproduct/2`} style={{ textDecoration: 'none' }}>
+          products.length>0?
+          products.map((item)=>(
+            <Col>
+                  
                     <Card style={{ width: '18rem' }} className="shadow-sm">
                       <Card.Img
                         variant="top"
-                        src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQzSOrIHIncvVwcn86Yj1lG2no3rymRPhF1AQ&s"
+                        src={item.images}
                         alt="Product"
                       />
                       <Card.Body>
-                        <Card.Title>title</Card.Title>
-                        <Card.Text>price$</Card.Text>
+                        <Card.Title>{item.title}</Card.Title>
+                        <Card.Text>{item.price}</Card.Text>
                         <div className='d-flex justify-content-center align-items-center gap-2'>
-                            <Button variant="danger">remove Product</Button>
-                            <Button variant="primary">Add to cart</Button>
+                            <Button variant="danger"  onClick={()=>dispatch(deleteProduct(item.id))}>remove Product</Button>
+                            <Button variant="primary" onClick={()=>dispatch(addToCart(item))}>Add to cart</Button>
                         </div>
                         
                       </Card.Body>
                     </Card>
-                  </Link>
+      
                 </Col>
-              
-            
-          }
-        </Row>
-        <Row>
+
+          ))
+                
+              :
+            <Row>
             <img src="https://cdn.dribbble.com/userupload/20690016/file/original-a6f6e18b0fba708e37637f70157b28c8.gif" alt="" />
         </Row>
+          }
+        </Row>
+        
       </section>
     </div>
   )

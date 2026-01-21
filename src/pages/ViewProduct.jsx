@@ -1,8 +1,13 @@
-import React, { useState, useEffect } from "react";
-import { Row, Col, Container, Button } from "react-bootstrap";
-import { Link, useParams } from "react-router-dom";
+import React, { useState, useEffect } from 'react';
+import { Row, Col, Container, Button } from 'react-bootstrap';
+import { Link, useParams } from 'react-router-dom'; 
+import { useDispatch } from 'react-redux';
+import { addToWishlist } from '../redux/slices/wishlistSlice';
+import { addToCart } from '../redux/slices/cartSlice';
 
 function ViewProduct() {
+
+  const dispatch=useDispatch()
   // 1. get product id from the URL
   const { id } = useParams();
 
@@ -10,16 +15,18 @@ function ViewProduct() {
   const baseurl = `https://dummyjson.com/products/${id}`;
   const [product, setProduct] = useState({});
 
+
   //define a function fetch data from url
-  const getData = async () => {
-    const response = await fetch(baseurl);
-    const productData = await response.json();
+    const getData=async()=>{
+    const response=await fetch(baseurl);
+    const productData=await response.json();
     setProduct(productData);
   };
 
   useEffect(() => {
     getData();
   }, []);
+
 
   return (
     <div>
@@ -35,17 +42,19 @@ function ViewProduct() {
             <h2>{product.title}</h2>
             <p>{product.description}</p>
             <h4 className="text-success">Price: ${product.price}</h4>
-            <div className="d-flex gap-3 mt-3">
-              <Button variant="dark" size="md" className="px-5 py-2">
-                Add to Cart
-              </Button>
+           <div className="d-flex gap-3 mt-3">
+  <Button onClick={()=>dispatch(addToWishlist(product))} variant="dark" size="md" className="px-5 py-2">
+    Add to Wishlist
+  </Button>
 
-              <Button variant="dark" size="md" className="px-5 py-2">
-                Add to wishlist
-              </Button>
+  <Button onClick={()=>dispatch(addToCart(product))} variant="dark" size="md" className="px-5 py-2">
+    Add to cart
+  </Button>
+</div>
+
+            
+            <div className="mt-3">
             </div>
-
-            <div className="mt-3"></div>
           </Col>
         </Row>
       </Container>
